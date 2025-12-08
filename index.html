@@ -1,70 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Reliable QR Code Generator</title>
-  <style>
-    body { font-family: Arial, sans-serif; background:#f9fafb; color:#111; padding:20px; }
-    .container { max-width:600px; margin:auto; }
-    textarea, input { width:100%; padding:10px; margin:8px 0; }
-    button { padding:10px 15px; margin-top:10px; cursor:pointer; }
-    #qrcode { margin-top:20px; }
-  </style>
-  <!-- Use QRCode.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern QR Experience</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <div class="container">
-    <h1>Reliable QR Code Generator</h1>
-    <p>Enter a link, text, or hosted file URL (image/video):</p>
-    <textarea id="data" placeholder="https://example.com"></textarea>
-    <label>Size (px): <input id="size" type="number" value="256" min="128" max="1024"></label>
-    <button onclick="generateQR()">Generate QR</button>
-    <button onclick="downloadQR()">Download PNG</button>
-    <div id="qrcode"></div>
-  </div>
+    <div class="background-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
 
-  <script>
-    let qr;
+    <main class="container">
+        <div class="glass-card fade-in-up">
+            <header>
+                <h1>QR Code</h1>
+                <p class="subtitle">Scan to discover more</p>
+            </header>
 
-    function generateQR() {
-      const data = document.getElementById('data').value.trim();
-      const size = parseInt(document.getElementById('size').value) || 256;
+            <div class="input-group">
+                <input type="url" placeholder="Enter your URL here..." class="url-input">
+                <button class="btn primary generate-btn">Generate QR Code</button>
+            </div>
 
-      if (!data) {
-        alert("Please enter some text or a URL.");
-        return;
-      }
+            <div class="qr-placeholder shimmer">
+                <!-- In a real scenario, the QR code image would go here -->
+                <div class="qr-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                </div>
+            </div>
 
-      // Clear previous QR
-      document.getElementById('qrcode').innerHTML = "";
-
-      // Force canvas renderer for reliability
-      qr = new QRCode(document.getElementById("qrcode"), {
-        text: data,
-        width: size,
-        height: size,
-        colorDark: "#000000",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.H
-      });
-    }
-
-    function downloadQR() {
-      if (!qr) {
-        alert("Generate a QR code first!");
-        return;
-      }
-      const canvas = document.querySelector("#qrcode canvas");
-      if (!canvas) {
-        alert("QR not rendered properly.");
-        return;
-      }
-      const link = document.createElement("a");
-      link.href = canvas.toDataURL("image/png");
-      link.download = "qr-code.png";
-      link.click();
-    }
-  </script>
+            <div class="actions">
+                <button class="btn primary">Download QR</button>
+                <button class="btn secondary">Share Link</button>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
 </body>
+
 </html>
