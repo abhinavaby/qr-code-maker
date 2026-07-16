@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const urlInput = document.querySelector('.url-input');
     const generateBtn = document.querySelector('.generate-btn');
+    const downloadBtn = document.querySelector('.download-btn');
     const qrPlaceholder = document.querySelector('.qr-placeholder');
     const qrIcon = document.querySelector('.qr-icon');
 
@@ -36,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Hide icon, show image
             if (qrIcon) qrIcon.style.display = 'none';
             qrImage.style.display = 'block';
+            downloadBtn.disabled = false;
 
             // Remove loading state
             generateBtn.textContent = 'Generate QR Code';
@@ -60,4 +62,27 @@ document.addEventListener('DOMContentLoaded', () => {
             generateQRCode();
         }
     });
+  downloadBtn.addEventListener("click", async () => {
+    if (!qrImage.src) return;
+
+    try {
+        const response = await fetch(qrImage.src);
+        const blob = await response.blob();
+
+        const blobUrl = URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+        link.href = blobUrl;
+        link.download = "qr-code.png";
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+        alert("Unable to download the QR code.");
+        console.error(error);
+    }
+}); 
 });
