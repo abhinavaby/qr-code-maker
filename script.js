@@ -1,63 +1,148 @@
 document.addEventListener('DOMContentLoaded', () => {
+
     const urlInput = document.querySelector('.url-input');
     const generateBtn = document.querySelector('.generate-btn');
+    const downloadBtn = document.querySelector('.download-btn');
     const qrPlaceholder = document.querySelector('.qr-placeholder');
     const qrIcon = document.querySelector('.qr-icon');
+    const errorMessage = document.querySelector('.error-message');
 
-    // Create image element for QR code
+    // Disable download initially
+    downloadBtn.disabled = true;
+
+    // Create QR image element
     const qrImage = document.createElement('img');
     qrImage.className = 'qr-image';
-    qrImage.style.display = 'none'; // Hide initially
+    qrImage.style.display = 'none';
     qrPlaceholder.appendChild(qrImage);
 
+    // Show error
+    function showError(message) {
+        errorMessage.textContent = message;
+        urlInput.classList.add('error');
+        urlInput.focus();
+    }
+
+    // Clear error
+    function clearError() {
+        errorMessage.textContent = '';
+        urlInput.classList.remove('error');
+    }
+
+    // Generate QR Code
     function generateQRCode() {
+
         const url = urlInput.value.trim();
 
+        clearError();
+
+        // Empty input validation
         if (!url) {
-            // Simple shake animation or error state could go here
-            urlInput.focus();
+            showError("Please enter a URL.");
             return;
         }
 
-        // Show loading state
-        generateBtn.textContent = 'Generating...';
+        // URL validation
+        try {
+            const parsed = new URL(url);
+
+            if (
+                parsed.protocol !== "http:" &&
+                parsed.protocol !== "https:"
+            ) {
+                throw new Error();
+            }
+
+        } catch {
+            showError("Please enter a valid URL.");
+            return;
+        }
+
+        // Loading state
+        generateBtn.textContent = "Generating...";
         generateBtn.disabled = true;
-        qrPlaceholder.classList.add('loading');
+        qrPlaceholder.classList.add("loading");
 
-        // Construct API URL
-        // Using a public API for QR generation
-        const cleanUrl = encodeURIComponent(url);
-        const apiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${cleanUrl}`;
+        // Build API URL
+        const apiUrl =
+            `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(url)}`;
 
-        // Load image
         qrImage.src = apiUrl;
 
         qrImage.onload = () => {
-            // Hide icon, show image
-            if (qrIcon) qrIcon.style.display = 'none';
-            qrImage.style.display = 'block';
 
-            // Remove loading state
-            generateBtn.textContent = 'Generate QR Code';
+            if (qrIcon) {
+                qrIcon.style.display = "none";
+            }
+
+            qrImage.style.display = "block";
+
+            generateBtn.textContent = "Generate QR Code";
             generateBtn.disabled = false;
-            qrPlaceholder.classList.remove('loading');
-            qrPlaceholder.classList.remove('shimmer'); // Stop shimmer once loaded
+
+            qrPlaceholder.classList.remove("loading");
+            qrPlaceholder.classList.remove("shimmer");
+
+            downloadBtn.disabled = false;
         };
 
         qrImage.onerror = () => {
-            alert('Failed to generate QR code. Please try again.');
-            generateBtn.textContent = 'Generate QR Code';
+
+            showError("Failed to generate QR code.");
+
+            generateBtn.textContent = "Generate QR Code";
             generateBtn.disabled = false;
-            qrPlaceholder.classList.remove('loading');
+
+            qrPlaceholder.classList.remove("loading");
         };
     }
 
-    // Event listeners
-    generateBtn.addEventListener('click', generateQRCode);
+    // Download QR
+    downloadBtn.addEventListener("click", async () => {
 
-    urlInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
+        if (!qrImage.src) return;
+
+        try {
+
+            const response = await fetch(qrImage.src);
+            const blob = await response.blob();
+
+            const blobUrl = URL.createObjectURL(blob);
+
+            const link = document.createElement("a");
+
+            link.href = blobUrl;
+            link.download = "qr-code.png";
+
+            document.body.appendChild(link);
+
+            link.click();
+
+            document.body.removeChild(link);
+
+            URL.revokeObjectURL(blobUrl);
+
+        } catch {
+
+            showError("Unable to download QR code.");
+
+        }
+
+    });
+
+    // Generate button
+    generateBtn.addEventListener("click", generateQRCode);
+
+    // Enter key support
+    urlInput.addEventListener("keypress", (e) => {
+
+        if (e.key === "Enter") {
             generateQRCode();
         }
+
     });
+
+    // Clear errors while typing
+    urlInput.addEventListener("input", clearError);
+
 });

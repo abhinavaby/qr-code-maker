@@ -5,50 +5,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modern QR Experience</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap"
+        rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+
     <div class="background-orbs">
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
     </div>
 
     <main class="container">
+
         <div class="glass-card fade-in-up">
+
             <header>
                 <h1>QR Code</h1>
                 <p class="subtitle">Scan to discover more</p>
             </header>
 
             <div class="input-group">
-                <input type="url" placeholder="Enter your URL here..." class="url-input">
-                <button class="btn primary generate-btn">Generate QR Code</button>
+
+                <input
+                    type="url"
+                    placeholder="Enter your URL here..."
+                    class="url-input"
+                    autocomplete="off">
+
+                <!-- Inline Error Message -->
+                <small class="error-message"></small>
+
+                <button class="btn primary generate-btn">
+                    Generate QR Code
+                </button>
+
             </div>
 
             <div class="qr-placeholder shimmer">
-                <!-- In a real scenario, the QR code image would go here -->
+
                 <div class="qr-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        width="64"
+                        height="64"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round">
+
                         <rect x="3" y="3" width="7" height="7"></rect>
                         <rect x="14" y="3" width="7" height="7"></rect>
                         <rect x="14" y="14" width="7" height="7"></rect>
                         <rect x="3" y="14" width="7" height="7"></rect>
+
                     </svg>
+
                 </div>
+
             </div>
 
             <div class="actions">
-                <button class="btn primary">Download QR</button>
-                <button class="btn secondary">Share Link</button>
+
+                <button
+                    class="btn primary download-btn"
+                    disabled>
+                    Download QR
+                </button>
+
+                <button
+                    class="btn secondary share-btn">
+                    Share Link
+                </button>
+
             </div>
+
         </div>
+
     </main>
+
     <script src="script.js"></script>
+
 </body>
 
 </html>
