@@ -70,6 +70,10 @@ document.addEventListener('DOMContentLoaded', () => {
         qrImage.src = apiUrl;
 
         qrImage.onload = () => {
+            // Hide icon, show image
+            if (qrIcon) qrIcon.style.display = 'none';
+            qrImage.style.display = 'block';
+            downloadBtn.disabled = false;
 
             if (qrIcon) {
                 qrIcon.style.display = "none";
@@ -141,8 +145,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
     });
+  downloadBtn.addEventListener("click", async () => {
+    if (!qrImage.src) return;
 
-    // Clear errors while typing
-    urlInput.addEventListener("input", clearError);
+    try {
+        const response = await fetch(qrImage.src);
+        const blob = await response.blob();
 
+        const blobUrl = URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+        link.href = blobUrl;
+        link.download = "qr-code.png";
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+        alert("Unable to download the QR code.");
+        console.error(error);
+    }
+}); 
 });

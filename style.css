@@ -272,19 +272,8 @@ header h1 {
         transform: translateY(0);
     }
 }
-
-/* Mobile Responsiveness */
-@media (max-width: 480px) {
-    .glass-card {
-        padding: 2rem;
-    }
-
-    header h1 {
-        font-size: 2rem;
-    }
-
-    .qr-placeholder {
-        width: 180px;
-        height: 180px;
-    }
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
 }
