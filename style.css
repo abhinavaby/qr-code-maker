@@ -249,3 +249,8 @@ header h1 {
         transform: translateY(0);
     }
 }
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
