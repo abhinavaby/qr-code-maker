@@ -249,3 +249,35 @@ header h1 {
         transform: translateY(0);
     }
 }
+/* Error message */
+.error-message {
+    display: block;
+    min-height: 20px;
+    color: #ff6b6b;
+    font-size: 0.85rem;
+    text-align: left;
+    margin-top: -8px;
+    margin-bottom: 8px;
+}
+
+.url-input.error {
+    border-color: #ff6b6b;
+    box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.15);
+}
+
+/* Disabled buttons */
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Clear button */
+.clear-btn {
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    color: var(--text-main);
+}
+
+.clear-btn:hover {
+    background: var(--glass-border);
+}
