@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,8 +8,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap"
-        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap"
+        rel="stylesheet"
+    >
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -35,11 +36,11 @@
 
                 <input
                     type="url"
-                    placeholder="Enter your URL here..."
                     class="url-input"
-                    autocomplete="off">
+                    placeholder="Enter your URL here..."
+                    autocomplete="off"
+                >
 
-                <!-- Inline Error Message -->
                 <small class="error-message"></small>
 
                 <button class="btn primary generate-btn">
@@ -52,7 +53,8 @@
 
                 <div class="qr-icon">
 
-                    <svg xmlns="http://www.w3.org/2000/svg"
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
                         width="64"
                         height="64"
                         viewBox="0 0 24 24"
@@ -60,12 +62,13 @@
                         stroke="currentColor"
                         stroke-width="2"
                         stroke-linecap="round"
-                        stroke-linejoin="round">
+                        stroke-linejoin="round"
+                    >
 
                         <rect x="3" y="3" width="7" height="7"></rect>
                         <rect x="14" y="3" width="7" height="7"></rect>
-                        <rect x="14" y="14" width="7" height="7"></rect>
                         <rect x="3" y="14" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
 
                     </svg>
 
@@ -73,10 +76,23 @@
 
             </div>
 
-           <div class="actions">
-    <button class="btn primary download-btn" disabled>Download QR</button>
-    <button class="btn secondary share-btn">Share Link</button>
-</div>
+            <div class="actions">
+
+                <button class="btn primary download-btn" disabled>
+                    Download QR
+                </button>
+
+                <!-- New Clear Button -->
+                <button class="btn secondary clear-btn">
+                    Clear
+                </button>
+
+                <button class="btn secondary share-btn">
+                    Share Link
+                </button>
+
+            </div>
+
         </div>
 
     </main>
@@ -84,5 +100,4 @@
     <script src="script.js"></script>
 
 </body>
-
 </html>
